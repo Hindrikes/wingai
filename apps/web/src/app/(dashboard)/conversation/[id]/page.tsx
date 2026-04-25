@@ -49,14 +49,14 @@ export default function ConversationPage() {
       {/* Header */}
       <div className="flex items-start justify-between">
         <div>
-          <h1 className="text-xl font-semibold text-wing-900">{match.matchName}</h1>
+          <h1 className="text-xl font-semibold text-wing-900">{match.displayName}</h1>
           <p className="text-sm text-muted-foreground">
             {match.platform} · Kemi {match.chemistryScore}% · Lång sikt {match.longtermScore}%
           </p>
         </div>
         <div className={`px-3 py-1 rounded-full text-xs font-medium ${
-          match.stage === "dating" ? "bg-emerald-100 text-emerald-700" :
-          match.stage === "messaging" ? "bg-wing-100 text-wing-700" :
+          match.stage === "date_complete" ? "bg-emerald-100 text-emerald-700" :
+          match.stage === "active" ? "bg-wing-100 text-wing-700" :
           "bg-gray-100 text-gray-600"
         }`}>
           {match.stage}
@@ -83,7 +83,13 @@ export default function ConversationPage() {
       </div>
 
       {analysis && (
-        <ConvoOSPanel analysis={analysis} matchName={match.matchName} />
+        <ConvoOSPanel
+          analysis={analysis}
+          matchName={match.displayName}
+          loading={loading}
+          onRequestSuggestions={analyze}
+          onSend={(_msg, _style) => {}}
+        />
       )}
     </div>
   );

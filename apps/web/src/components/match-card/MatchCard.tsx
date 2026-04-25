@@ -83,9 +83,9 @@ export function MatchCard({ match, onAction, compact = false }: MatchCardProps) 
       </div>
 
       {/* Green flags */}
-      {!compact && match.greenFlags.length > 0 && (
+      {!compact && (match.greenFlags?.length ?? 0) > 0 && (
         <div className="mb-3">
-          {match.greenFlags.slice(0, 2).map((flag) => (
+          {(match.greenFlags ?? []).slice(0, 2).map((flag) => (
             <div key={flag} className="flex items-start gap-1.5 text-xs text-muted-foreground mb-1">
               <span className="text-sage-500 mt-0.5">✓</span>
               <span>{flag}</span>

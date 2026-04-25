@@ -3,6 +3,35 @@ import { redirect } from "next/navigation";
 import { DateFlowPipeline } from "@/components/pipeline/DateFlowPipeline";
 import type { MatchCard } from "@/types";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function mapMatch(row: any): MatchCard {
+  return {
+    id: row.id,
+    userId: row.user_id,
+    platform: row.platform,
+    platformMatchId: row.platform_match_id,
+    displayName: row.display_name,
+    age: row.age,
+    occupation: row.occupation,
+    location: row.location,
+    chemistryScore: row.chemistry_score ?? 50,
+    longtermScore: row.longterm_score ?? 50,
+    riskScore: row.risk_score ?? 20,
+    effortRoi: row.effort_roi ?? "medium",
+    greenFlags: row.green_flags ?? [],
+    redFlags: row.red_flags ?? [],
+    personalitySignals: row.personality_signals ?? {},
+    visualSignals: row.visual_signals ?? {},
+    compatibilityExplanation: row.compatibility_explanation ?? "",
+    nextRecommendedAction: row.next_recommended_action ?? null,
+    stage: row.stage,
+    conversationMomentum: row.conversation_momentum ?? null,
+    lastMessageAt: row.last_message_at ?? null,
+    createdAt: row.created_at,
+    updatedAt: row.updated_at,
+  };
+}
+
 export default async function PipelinePage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
@@ -37,7 +66,7 @@ export default async function PipelinePage() {
       </div>
 
       {/* Today's priority */}
-      <TodaysPriority matches={matches as MatchCard[] ?? []} />
+      <TodaysPriority matches={(matches ?? []).map(mapMatch)} />
 
       {/* Pipeline */}
       <div className="mt-6">
@@ -50,7 +79,7 @@ export default async function PipelinePage() {
             + Importera profil
           </a>
         </div>
-        <DateFlowPipeline matches={matches as MatchCard[] ?? []} />
+        <DateFlowPipeline matches={(matches ?? []).map(mapMatch)} />
       </div>
     </div>
   );
