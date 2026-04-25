@@ -1,0 +1,33 @@
+{
+  "name": "@wingai/extension",
+  "version": "0.1.0",
+  "private": true,
+  "description": "WingAI Chrome Extension — ConvoOS i din datingapp",
+  "scripts": {
+    "dev": "plasmo dev",
+    "build": "plasmo build",
+    "package": "plasmo package"
+  },
+  "dependencies": {
+    "plasmo": "0.90.5",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.268",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "typescript": "^5.6.2"
+  },
+  "manifest": {
+    "name": "WingAI — AI-dejtingcoach",
+    "description": "Få AI-svarsförslag direkt i Hinge, Tinder och Bumble.",
+    "permissions": ["storage", "activeTab"],
+    "host_permissions": [
+      "https://hinge.co/*",
+      "https://tinder.com/*",
+      "https://bumble.com/*",
+      "https://wingai-umber.vercel.app/*"
+    ]
+  }
+}
