@@ -28,13 +28,13 @@ export const metadata: Metadata = {
     siteName: "WingAI",
     locale: "sv_SE",
     type: "website",
-    images: [{ url: "/og.png", width: 1200, height: 630, alt: "WingAI" }],
+    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "WingAI" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "WingAI — AI-drivet dejtingoperativsystem",
     description: "Analyserar matcher och bokar fler dates — AI på svenska.",
-    images: ["/og.png"],
+    images: ["/opengraph-image"],
   },
   robots: { index: true, follow: true },
 };
