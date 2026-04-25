@@ -34,25 +34,26 @@ export default function SettingsClient({ profile, email }: Props) {
   return (
     <div className="max-w-xl mx-auto px-4 py-8 space-y-8">
       <div>
-        <h1 className="text-2xl font-semibold text-wing-900 mb-1">Inställningar</h1>
-        <p className="text-sm text-muted-foreground">Hantera din profil och preferenser.</p>
+        <p className="text-xs font-semibold uppercase tracking-widest text-sand-700 mb-1">Konto</p>
+        <h1 className="font-serif text-3xl font-semibold text-ink-900 mb-1">Inställningar</h1>
+        <p className="text-sm text-sand-700">Hantera din profil och preferenser.</p>
       </div>
 
       {/* Account */}
-      <div className="bg-white rounded-2xl border border-wing-100 p-6 space-y-4">
-        <h2 className="font-medium text-wing-900">Konto</h2>
-        <div className="flex items-center justify-between py-2 border-b border-wing-50">
-          <span className="text-sm text-wing-700">E-post</span>
-          <span className="text-sm text-muted-foreground">{email}</span>
+      <div className="bg-white rounded-xl border border-sand-400/60 p-6 space-y-4">
+        <h2 className="font-serif font-semibold text-ink-900">Konto</h2>
+        <div className="flex items-center justify-between py-2 border-b border-sand-300">
+          <span className="text-sm text-sand-700">E-post</span>
+          <span className="text-sm text-ink-700">{email}</span>
         </div>
-        <div className="flex items-center justify-between py-2 border-b border-wing-50">
+        <div className="flex items-center justify-between py-2 border-b border-sand-300">
           <div>
-            <p className="text-sm font-medium text-wing-900">Autopilot-läge</p>
-            <p className="text-xs text-muted-foreground">WingAI föreslår svar automatiskt</p>
+            <p className="text-sm font-medium text-ink-900">Autopilot-läge</p>
+            <p className="text-xs text-sand-700">WingAI föreslår svar automatiskt</p>
           </div>
           <button
             onClick={() => setAutopilot(!autopilot)}
-            className={`relative w-11 h-6 rounded-full transition-colors ${autopilot ? "bg-wing-600" : "bg-wing-200"}`}
+            className={`relative w-11 h-6 rounded-full transition-colors ${autopilot ? "bg-terra-500" : "bg-sand-400"}`}
           >
             <span
               className={`absolute top-1 left-1 w-4 h-4 bg-white rounded-full shadow transition-transform ${autopilot ? "translate-x-5" : "translate-x-0"}`}
@@ -62,29 +63,29 @@ export default function SettingsClient({ profile, email }: Props) {
       </div>
 
       {/* DNA Profile */}
-      <div className="bg-white rounded-2xl border border-wing-100 p-6 space-y-4">
-        <h2 className="font-medium text-wing-900">Din UserDNA-profil</h2>
+      <div className="bg-white rounded-xl border border-sand-400/60 p-6 space-y-4">
+        <h2 className="font-serif font-semibold text-ink-900">Din UserDNA-profil</h2>
         {profile ? (
           <div className="space-y-3 text-sm">
             <div className="flex justify-between">
-              <span className="text-muted-foreground">Anknytningsstil</span>
-              <span className="font-medium capitalize">{(profile.attachment_style as string) ?? "—"}</span>
+              <span className="text-sand-700">Anknytningsstil</span>
+              <span className="font-medium text-ink-800 capitalize">{(profile.attachment_style as string) ?? "—"}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-muted-foreground">Humorregister</span>
-              <span className="font-medium capitalize">{(profile.humor_register as string) ?? "—"}</span>
+              <span className="text-sand-700">Humorregister</span>
+              <span className="font-medium text-ink-800 capitalize">{(profile.humor_register as string) ?? "—"}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-muted-foreground">Openersstil</span>
-              <span className="font-medium capitalize">{(profile.opener_style as string) ?? "—"}</span>
+              <span className="text-sand-700">Openersstil</span>
+              <span className="font-medium text-ink-800 capitalize">{(profile.opener_style as string) ?? "—"}</span>
             </div>
           </div>
         ) : (
-          <p className="text-sm text-muted-foreground">Profil ej klar. Slutför onboarding.</p>
+          <p className="text-sm text-sand-700">Profil ej klar. Slutför onboarding.</p>
         )}
         <button
           onClick={() => router.push("/onboarding")}
-          className="text-sm text-wing-600 hover:text-wing-700 font-medium"
+          className="text-sm text-terra-500 hover:text-terra-600 font-medium"
         >
           Gör om kartläggning →
         </button>
@@ -95,13 +96,13 @@ export default function SettingsClient({ profile, email }: Props) {
         <button
           onClick={handleSave}
           disabled={saving}
-          className="w-full bg-wing-600 text-white py-2.5 rounded-xl text-sm font-medium hover:bg-wing-700 transition-colors disabled:opacity-50"
+          className="w-full bg-ink-900 text-sand-100 py-2.5 rounded text-sm font-medium hover:bg-ink-800 transition-colors disabled:opacity-50"
         >
           {saved ? "Sparat ✓" : saving ? "Sparar…" : "Spara inställningar"}
         </button>
         <button
           onClick={handleSignOut}
-          className="w-full border border-red-200 text-red-600 py-2.5 rounded-xl text-sm font-medium hover:bg-red-50 transition-colors"
+          className="w-full border border-terra-200 text-terra-600 py-2.5 rounded text-sm font-medium hover:bg-terra-50 transition-colors"
         >
           Logga ut
         </button>

@@ -2,6 +2,19 @@ import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 
+function WingLogo({ size = 36 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="48" height="48" rx="9" fill="#C4532A" />
+      <path
+        d="M10 36 C10 24, 20 10, 34 9 C24 15, 17 24, 22 33 C26 22, 34 14, 46 10 C38 20, 32 30, 37 42 C30 38, 20 40, 10 36Z"
+        fill="white"
+        opacity="0.95"
+      />
+    </svg>
+  );
+}
+
 export default async function DashboardLayout({
   children,
 }: {
@@ -13,54 +26,44 @@ export default async function DashboardLayout({
   if (!user) redirect("/login");
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
+    <div className="min-h-screen bg-sand-200 flex">
       {/* Sidebar */}
-      <aside className="w-56 bg-white border-r border-wing-100 flex flex-col fixed h-full">
-        <div className="p-4 border-b border-wing-50">
-          <div className="flex items-center gap-2">
-            <span className="text-xl">🦋</span>
-            <span className="font-semibold text-wing-900">WingAI</span>
-          </div>
+      <aside className="w-16 bg-ink-900 flex flex-col items-center fixed h-full py-5 gap-1">
+        <div className="mb-6">
+          <WingLogo size={36} />
         </div>
 
-        <nav className="flex-1 p-3 space-y-1">
-          <NavItem href="/pipeline" icon="📊" label="Pipeline" />
-          <NavItem href="/analytics" icon="📈" label="Analys" />
-          <NavItem href="/import" icon="📷" label="Importera profil" />
-          <NavItem href="/settings" icon="⚙️" label="Inställningar" />
-        </nav>
+        <NavIcon href="/pipeline" icon="⊞" label="Pipeline" />
+        <NavIcon href="/analytics" icon="📈" label="Analys" />
+        <NavIcon href="/import" icon="⬆️" label="Importera" />
 
-        <div className="p-3 border-t border-wing-50">
-          <form action="/api/auth/signout" method="POST">
-            <button className="w-full text-left text-sm text-muted-foreground hover:text-foreground transition-colors px-3 py-2 rounded-lg hover:bg-wing-50">
-              Logga ut
+        <div className="mt-auto">
+          <NavIcon href="/settings" icon="⚙️" label="Inställningar" />
+          <form action="/api/auth/signout" method="POST" className="mt-1">
+            <button
+              title="Logga ut"
+              className="w-10 h-10 rounded-lg flex items-center justify-center text-ink-500 hover:text-sand-300 hover:bg-white/8 transition-colors text-base"
+            >
+              ↩
             </button>
           </form>
         </div>
       </aside>
 
       {/* Main content */}
-      <main className="flex-1 ml-56">{children}</main>
+      <main className="flex-1 ml-16 bg-sand-100 min-h-screen">{children}</main>
     </div>
   );
 }
 
-function NavItem({
-  href,
-  icon,
-  label,
-}: {
-  href: string;
-  icon: string;
-  label: string;
-}) {
+function NavIcon({ href, icon, label }: { href: string; icon: string; label: string }) {
   return (
     <Link
       href={href}
-      className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-muted-foreground hover:text-wing-900 hover:bg-wing-50 transition-colors"
+      title={label}
+      className="w-10 h-10 rounded-lg flex items-center justify-center text-ink-500 hover:text-sand-200 hover:bg-white/8 transition-colors text-base"
     >
-      <span>{icon}</span>
-      <span>{label}</span>
+      {icon}
     </Link>
   );
 }

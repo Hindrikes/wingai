@@ -33,28 +33,33 @@ function AccessForm() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-wing-50 via-white to-wing-100 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-sand-100 flex items-center justify-center p-4">
       <div className="w-full max-w-sm text-center">
-        <div className="text-4xl mb-3">🦋</div>
-        <h1 className="text-xl font-semibold text-wing-900 mb-1">WingAI</h1>
-        <p className="text-sm text-muted-foreground mb-8">Privat beta — ange lösenord för att fortsätta</p>
+        <div className="flex justify-center mb-3">
+          <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="48" height="48" rx="9" fill="#C4532A" />
+            <path d="M10 36 C10 24, 20 10, 34 9 C24 15, 17 24, 22 33 C26 22, 34 14, 46 10 C38 20, 32 30, 37 42 C30 38, 20 40, 10 36Z" fill="white" opacity="0.95" />
+          </svg>
+        </div>
+        <h1 className="font-serif text-xl font-semibold text-ink-900 mb-1">Wing<em className="text-terra-500 not-italic">AI</em></h1>
+        <p className="text-sm text-sand-700 mb-8">Privat beta — ange lösenord för att fortsätta</p>
 
-        <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-wing-100 shadow-sm p-6 space-y-4">
+        <form onSubmit={handleSubmit} className="bg-white rounded-xl border border-sand-400/60 shadow-sm p-6 space-y-4">
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Lösenord"
             autoFocus
-            className="w-full px-3 py-2.5 rounded-xl border border-wing-200 text-sm focus:outline-none focus:ring-2 focus:ring-wing-400"
+            className="w-full px-3 py-2.5 rounded border border-sand-400 text-sm focus:outline-none focus:ring-2 focus:ring-terra-500/40 focus:border-terra-500 bg-sand-50"
           />
           {error && (
-            <p className="text-sm text-red-500">Fel lösenord. Försök igen.</p>
+            <p className="text-sm text-terra-500">Fel lösenord. Försök igen.</p>
           )}
           <button
             type="submit"
             disabled={loading || !password}
-            className="w-full bg-wing-600 text-white py-2.5 rounded-xl text-sm font-medium hover:bg-wing-700 transition-colors disabled:opacity-50"
+            className="w-full bg-ink-900 text-sand-100 py-2.5 rounded text-sm font-medium hover:bg-ink-800 transition-colors disabled:opacity-50"
           >
             {loading ? "Kontrollerar…" : "Gå in"}
           </button>

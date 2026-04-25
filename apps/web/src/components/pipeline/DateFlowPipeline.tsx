@@ -29,7 +29,7 @@ export function DateFlowPipeline({ matches, onMatchAction }: DateFlowPipelinePro
     matches.filter((m) => m.stage === stage).length;
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-5">
       {/* Stage filter tabs */}
       <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
         <StageTab
@@ -51,10 +51,14 @@ export function DateFlowPipeline({ matches, onMatchAction }: DateFlowPipelinePro
 
       {/* Match cards grid */}
       {filteredMatches.length === 0 ? (
-        <div className="text-center py-12 text-muted-foreground">
-          <div className="text-3xl mb-2">🦋</div>
-          <p className="text-sm">Inga matcher i det här stadiet ännu.</p>
-          <p className="text-xs mt-1">
+        <div className="text-center py-16 text-sand-700">
+          <div className="mb-4 flex justify-center">
+            <svg width="40" height="40" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="opacity-30">
+              <path d="M10 36 C10 24, 20 10, 34 9 C24 15, 17 24, 22 33 C26 22, 34 14, 46 10 C38 20, 32 30, 37 42 C30 38, 20 40, 10 36Z" fill="#8C7B6B"/>
+            </svg>
+          </div>
+          <p className="text-sm font-medium text-ink-700">Inga matcher i det här stadiet ännu.</p>
+          <p className="text-xs mt-1 text-sand-700">
             Importera en profil via skärmdump för att komma igång.
           </p>
         </div>
@@ -88,17 +92,17 @@ function StageTab({
     <button
       onClick={onClick}
       className={cn(
-        "flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-colors",
+        "flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-semibold uppercase tracking-wide whitespace-nowrap transition-all",
         active
-          ? "bg-wing-600 text-white"
-          : "bg-wing-50 text-wing-700 hover:bg-wing-100"
+          ? "bg-ink-900 text-sand-100"
+          : "bg-white text-sand-700 border border-sand-400 hover:border-ink-400 hover:text-ink-800"
       )}
     >
       {label}
       <span
         className={cn(
-          "text-xs px-1.5 py-0.5 rounded-full",
-          active ? "bg-white/20 text-white" : "bg-wing-200 text-wing-700"
+          "text-[10px] px-1.5 py-0.5 rounded",
+          active ? "bg-white/15 text-sand-200" : "bg-sand-300 text-sand-800"
         )}
       >
         {count}

@@ -16,87 +16,78 @@ export function MatchCard({ match, onAction, compact = false }: MatchCardProps) 
   return (
     <div
       className={cn(
-        "bg-white rounded-2xl border border-wing-100 shadow-sm hover:shadow-md transition-all duration-200 animate-fade-in",
+        "bg-white rounded-xl border border-sand-400/60 hover:border-sand-500 hover:shadow-md transition-all duration-200 animate-fade-in relative",
         compact ? "p-4" : "p-5"
       )}
     >
       {/* Header */}
       <div className="flex items-start justify-between mb-3">
         <div>
-          <h3 className="font-semibold text-wing-900 text-sm">
+          <h3 className="font-serif font-semibold text-ink-900 text-base leading-tight">
             {match.displayName}
             {match.age && (
-              <span className="text-muted-foreground font-normal">, {match.age}</span>
+              <span className="text-sand-700 font-sans font-normal text-sm">, {match.age}</span>
             )}
           </h3>
           {(match.occupation || match.location) && (
-            <p className="text-xs text-muted-foreground mt-0.5">
+            <p className="text-xs text-sand-700 mt-0.5">
               {[match.occupation, match.location].filter(Boolean).join(" · ")}
             </p>
           )}
         </div>
-        <div className="flex items-center gap-1.5">
-          {match.conversationMomentum && (
-            <span
-              className={cn(
-                "text-xs font-medium",
-                match.conversationMomentum === "rising" && "text-sage-500",
-                match.conversationMomentum === "falling" && "text-coral-400",
-                match.conversationMomentum === "stalled" && "text-yellow-500",
-                match.conversationMomentum === "stable" && "text-muted-foreground"
-              )}
-            >
-              {getMomentumIcon(match.conversationMomentum)}
-            </span>
-          )}
-        </div>
+        {match.conversationMomentum && (
+          <span
+            className={cn(
+              "text-sm mt-0.5",
+              match.conversationMomentum === "rising" && "text-forest-600",
+              match.conversationMomentum === "falling" && "text-terra-500",
+              match.conversationMomentum === "stalled" && "text-sand-600",
+              match.conversationMomentum === "stable" && "text-sand-700"
+            )}
+          >
+            {getMomentumIcon(match.conversationMomentum)}
+          </span>
+        )}
       </div>
 
-      {/* Scores */}
-      <div className="grid grid-cols-2 gap-2 mb-3">
-        <ScorePill
-          label="⚡ Kemikemi"
-          score={match.chemistryScore}
-        />
-        <ScorePill
-          label="♾ Lång­sikt"
-          score={match.longtermScore}
-        />
+      {/* Score bars */}
+      <div className="space-y-2 mb-3">
+        <ScoreBar label="Kemi" score={match.chemistryScore} accent="terra" />
+        <ScoreBar label="Långsikt" score={match.longtermScore} accent="forest" />
       </div>
 
-      {/* Risk indicator */}
+      {/* Risk */}
       <div className="flex items-center gap-2 mb-3">
-        <span className="text-xs text-muted-foreground">Risk:</span>
+        <span className="text-xs text-sand-700">Risk</span>
         <span
           className={cn(
-            "text-xs font-medium px-2 py-0.5 rounded-full",
-            riskLow && "bg-sage-400/10 text-sage-500",
-            riskMed && "bg-yellow-50 text-yellow-600",
-            !riskLow && !riskMed && "bg-coral-400/10 text-coral-400"
+            "text-xs font-medium px-2 py-0.5 rounded",
+            riskLow && "bg-forest-50 text-forest-600 border border-forest-100",
+            riskMed && "bg-sand-200 text-sand-800 border border-sand-400",
+            !riskLow && !riskMed && "bg-terra-50 text-terra-500 border border-terra-100"
           )}
         >
           {riskLow ? "Låg" : riskMed ? "Medium" : "Hög"} ({match.riskScore}%)
         </span>
-        <span className="text-xs text-muted-foreground ml-auto">
-          ROI: <span className="font-medium text-wing-700">{roiLabel(match.effortRoi)}</span>
+        <span className="text-xs text-sand-700 ml-auto">
+          ROI: <span className="font-medium text-ink-700">{roiLabel(match.effortRoi)}</span>
         </span>
       </div>
 
       {/* Green flags */}
       {!compact && (match.greenFlags?.length ?? 0) > 0 && (
-        <div className="mb-3">
-          {(match.greenFlags ?? []).slice(0, 2).map((flag) => (
-            <div key={flag} className="flex items-start gap-1.5 text-xs text-muted-foreground mb-1">
-              <span className="text-sage-500 mt-0.5">✓</span>
-              <span>{flag}</span>
-            </div>
+        <div className="mb-3 flex flex-wrap gap-1.5">
+          {(match.greenFlags ?? []).slice(0, 3).map((flag) => (
+            <span key={flag} className="text-xs px-2 py-0.5 rounded bg-sand-200 text-ink-700 border border-sand-300">
+              {flag}
+            </span>
           ))}
         </div>
       )}
 
-      {/* AI explanation (condensed) */}
+      {/* AI explanation */}
       {!compact && match.compatibilityExplanation && (
-        <p className="text-xs text-muted-foreground italic border-t border-wing-50 pt-3 mb-3 leading-relaxed">
+        <p className="text-xs text-sand-700 italic border-t border-sand-300 pt-3 mb-3 leading-relaxed">
           {match.compatibilityExplanation.length > 120
             ? match.compatibilityExplanation.slice(0, 120) + "…"
             : match.compatibilityExplanation}
@@ -106,16 +97,14 @@ export function MatchCard({ match, onAction, compact = false }: MatchCardProps) 
       {/* Footer */}
       <div className="flex items-center justify-between">
         {match.lastMessageAt && (
-          <span className="text-xs text-muted-foreground">
-            {timeAgo(match.lastMessageAt)}
-          </span>
+          <span className="text-xs text-sand-600">{timeAgo(match.lastMessageAt)}</span>
         )}
         {match.nextRecommendedAction && (
           <button
             onClick={() => onAction?.(match.id, match.nextRecommendedAction!)}
-            className="text-xs text-wing-600 font-medium hover:text-wing-700 transition-colors ml-auto"
+            className="text-xs text-forest-600 font-medium hover:text-forest-700 transition-colors ml-auto flex items-center gap-1"
           >
-            💡 {match.nextRecommendedAction}
+            → {match.nextRecommendedAction}
           </button>
         )}
       </div>
@@ -123,12 +112,26 @@ export function MatchCard({ match, onAction, compact = false }: MatchCardProps) 
   );
 }
 
-function ScorePill({ label, score }: { label: string; score: number }) {
+function ScoreBar({
+  label,
+  score,
+  accent,
+}: {
+  label: string;
+  score: number;
+  accent: "terra" | "forest";
+}) {
   return (
-    <div className="bg-wing-50 rounded-lg px-2.5 py-1.5">
-      <div className="text-xs text-muted-foreground mb-0.5">{label}</div>
-      <div className={cn("text-sm font-semibold", getScoreColor(score))}>
-        {formatScore(score)}
+    <div>
+      <div className="flex justify-between mb-1">
+        <span className="text-[10px] font-semibold uppercase tracking-wide text-sand-600">{label}</span>
+        <span className="text-[10px] font-semibold text-ink-700">{formatScore(score)}</span>
+      </div>
+      <div className="h-1 bg-sand-300 rounded-full overflow-hidden">
+        <div
+          className={cn("h-full rounded-full transition-all", accent === "terra" ? "bg-terra-500" : "bg-forest-600")}
+          style={{ width: `${score}%` }}
+        />
       </div>
     </div>
   );

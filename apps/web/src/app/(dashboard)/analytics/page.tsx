@@ -4,10 +4,10 @@ import { ShareCard } from "@/components/analytics/ShareCard";
 
 function StatCard({ label, value, sub, color = "wing" }: { label: string; value: string; sub?: string; color?: string }) {
   return (
-    <div className="bg-white rounded-2xl border border-wing-100 p-5">
-      <p className="text-xs text-muted-foreground mb-1">{label}</p>
-      <p className={`text-2xl font-semibold text-${color}-600`}>{value}</p>
-      {sub && <p className="text-xs text-muted-foreground mt-0.5">{sub}</p>}
+    <div className="bg-white rounded-xl border border-sand-400/60 p-5">
+      <p className="text-[10px] font-semibold uppercase tracking-wide text-sand-700 mb-1">{label}</p>
+      <p className="text-2xl font-serif font-semibold text-ink-900">{value}</p>
+      {sub && <p className="text-xs text-sand-700 mt-0.5">{sub}</p>}
     </div>
   );
 }
@@ -17,12 +17,12 @@ function FunnelBar({ label, value, max }: { label: string; value: number; max: n
   return (
     <div className="space-y-1">
       <div className="flex items-center justify-between text-sm">
-        <span className="text-wing-800">{label}</span>
-        <span className="font-medium text-wing-900">{value}</span>
+        <span className="text-sand-700">{label}</span>
+        <span className="font-medium text-ink-900">{value}</span>
       </div>
-      <div className="h-2 bg-wing-100 rounded-full overflow-hidden">
+      <div className="h-2 bg-sand-300 rounded-full overflow-hidden">
         <div
-          className="h-full bg-wing-500 rounded-full transition-all"
+          className="h-full bg-terra-500 rounded-full transition-all"
           style={{ width: `${pct}%` }}
         />
       </div>
@@ -72,8 +72,9 @@ export default async function AnalyticsPage() {
   return (
     <div className="max-w-3xl mx-auto px-4 py-8 space-y-8">
       <div>
-        <h1 className="text-2xl font-semibold text-wing-900 mb-1">Analys</h1>
-        <p className="text-muted-foreground text-sm">Din dejtingprestanda, visualiserad.</p>
+        <p className="text-xs font-semibold uppercase tracking-widest text-sand-700 mb-1">Statistik</p>
+        <h1 className="font-serif text-3xl font-semibold text-ink-900 mb-1">Analys</h1>
+        <p className="text-sand-700 text-sm">Din dejtingprestanda, visualiserad.</p>
       </div>
 
       {/* KPI row */}
@@ -85,8 +86,8 @@ export default async function AnalyticsPage() {
       </div>
 
       {/* Funnel */}
-      <div className="bg-white rounded-2xl border border-wing-100 p-6">
-        <h2 className="font-medium text-wing-900 mb-5">Dejt-tratt</h2>
+      <div className="bg-white rounded-xl border border-sand-400/60 p-6">
+        <h2 className="font-serif font-semibold text-ink-900 mb-5">Dejt-tratt</h2>
         <div className="space-y-4">
           <FunnelBar label="Discovered" value={total} max={total} />
           <FunnelBar label="Analyserade" value={contacted + dating} max={total} />
@@ -97,18 +98,18 @@ export default async function AnalyticsPage() {
 
       {/* Message style performance */}
       {Object.keys(styleStats).length > 0 && (
-        <div className="bg-white rounded-2xl border border-wing-100 p-6">
-          <h2 className="font-medium text-wing-900 mb-5">Meddelandestil-prestanda</h2>
+        <div className="bg-white rounded-xl border border-sand-400/60 p-6">
+          <h2 className="font-serif font-semibold text-ink-900 mb-5">Meddelandestil-prestanda</h2>
           <div className="space-y-4">
             {Object.entries(styleStats).map(([style, stats]) => {
               const rate = stats.used > 0 ? Math.round((stats.positive / stats.used) * 100) : 0;
               return (
                 <div key={style} className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <span className="text-sm font-medium text-wing-800 w-16">
+                    <span className="text-sm font-medium text-ink-700 w-16">
                       {styleLabels[style] ?? style}
                     </span>
-                    <div className="w-32 h-2 bg-wing-100 rounded-full overflow-hidden">
+                    <div className="w-32 h-2 bg-sand-300 rounded-full overflow-hidden">
                       <div
                         className="h-full rounded-full transition-all"
                         style={{
@@ -118,7 +119,7 @@ export default async function AnalyticsPage() {
                       />
                     </div>
                   </div>
-                  <span className="text-sm font-semibold text-wing-900">{rate}% svar</span>
+                  <span className="text-sm font-semibold text-ink-900">{rate}% svar</span>
                 </div>
               );
             })}
@@ -146,7 +147,7 @@ export default async function AnalyticsPage() {
       {total === 0 && (
         <div className="text-center py-12 text-muted-foreground">
           <div className="text-4xl mb-3">📊</div>
-          <p className="font-medium text-wing-900 mb-1">Ingen data ännu</p>
+          <p className="font-medium text-ink-900 mb-1">Ingen data ännu</p>
           <p className="text-sm">Importera profiler och börja dejta för att se din statistik här.</p>
         </div>
       )}

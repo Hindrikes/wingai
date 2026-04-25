@@ -42,16 +42,16 @@ export function ShareCard({ total, contacted, dating, avgChemistry, topStyle }: 
   }
 
   return (
-    <div className="bg-white rounded-2xl border border-wing-100 p-6">
+    <div className="bg-white rounded-xl border border-sand-400/60 p-6">
       <div className="flex items-center justify-between mb-5">
         <div>
-          <h2 className="font-medium text-wing-900">Din dejtingrapport</h2>
-          <p className="text-xs text-muted-foreground mt-0.5">Dela med vänner</p>
+          <h2 className="font-serif font-semibold text-ink-900">Din dejtingrapport</h2>
+          <p className="text-xs text-sand-700 mt-0.5">Dela med vänner</p>
         </div>
         <button
           onClick={handleShare}
           disabled={sharing}
-          className="flex items-center gap-2 bg-wing-600 text-white px-4 py-2 rounded-xl text-sm font-medium hover:bg-wing-700 transition-colors disabled:opacity-50"
+          className="flex items-center gap-2 bg-ink-900 text-sand-100 px-4 py-2 rounded text-sm font-medium hover:bg-ink-800 transition-colors disabled:opacity-50"
         >
           <span>↗</span>
           {sharing ? "Delar…" : "Dela statistik"}
@@ -61,34 +61,37 @@ export function ShareCard({ total, contacted, dating, avgChemistry, topStyle }: 
       {/* Visual card */}
       <div
         ref={cardRef}
-        className="bg-gradient-to-br from-wing-600 to-wing-800 rounded-xl p-5 text-white"
+        className="bg-ink-900 rounded-xl p-5 text-sand-100"
       >
         <div className="flex items-center gap-2 mb-4">
-          <span className="text-lg">🦋</span>
-          <span className="font-bold text-sm tracking-wide">WINGAI</span>
-          <span className="ml-auto text-xs opacity-70">Dejtingrapport</span>
+          <svg width="18" height="18" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="48" height="48" rx="9" fill="#C4532A" />
+            <path d="M10 36 C10 24, 20 10, 34 9 C24 15, 17 24, 22 33 C26 22, 34 14, 46 10 C38 20, 32 30, 37 42 C30 38, 20 40, 10 36Z" fill="white" opacity="0.95" />
+          </svg>
+          <span className="font-semibold text-xs tracking-widest uppercase">WingAI</span>
+          <span className="ml-auto text-xs text-sand-500">Dejtingrapport</span>
         </div>
         <div className="grid grid-cols-2 gap-3">
-          <div className="bg-white/10 rounded-lg px-3 py-2.5">
-            <p className="text-xs opacity-70">Matcher</p>
-            <p className="text-2xl font-bold">{total}</p>
+          <div className="bg-white/8 rounded-lg px-3 py-2.5">
+            <p className="text-xs text-sand-500">Matcher</p>
+            <p className="font-serif text-2xl font-semibold">{total}</p>
           </div>
-          <div className="bg-white/10 rounded-lg px-3 py-2.5">
-            <p className="text-xs opacity-70">Aktiva dates</p>
-            <p className="text-2xl font-bold">{dating}</p>
+          <div className="bg-white/8 rounded-lg px-3 py-2.5">
+            <p className="text-xs text-sand-500">Aktiva dates</p>
+            <p className="font-serif text-2xl font-semibold">{dating}</p>
           </div>
-          <div className="bg-white/10 rounded-lg px-3 py-2.5">
-            <p className="text-xs opacity-70">Snitt-kemi</p>
-            <p className="text-2xl font-bold">{avgChemistry}%</p>
+          <div className="bg-white/8 rounded-lg px-3 py-2.5">
+            <p className="text-xs text-sand-500">Snitt-kemi</p>
+            <p className="font-serif text-2xl font-semibold text-terra-400">{avgChemistry}%</p>
           </div>
-          <div className="bg-white/10 rounded-lg px-3 py-2.5">
-            <p className="text-xs opacity-70">Konvertering</p>
-            <p className="text-2xl font-bold">{winRate}%</p>
+          <div className="bg-white/8 rounded-lg px-3 py-2.5">
+            <p className="text-xs text-sand-500">Konvertering</p>
+            <p className="font-serif text-2xl font-semibold">{winRate}%</p>
           </div>
         </div>
         {topStyle && (
-          <p className="text-xs opacity-70 mt-3 text-center">
-            Bästa meddelandestil: <span className="font-semibold opacity-100">{topStyle}</span>
+          <p className="text-xs text-sand-500 mt-3 text-center">
+            Bästa meddelandestil: <span className="font-semibold text-sand-200">{topStyle}</span>
           </p>
         )}
       </div>
