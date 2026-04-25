@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
+import { ShareCard } from "@/components/analytics/ShareCard";
 
 function StatCard({ label, value, sub, color = "wing" }: { label: string; value: string; sub?: string; color?: string }) {
   return (
@@ -123,6 +124,23 @@ export default async function AnalyticsPage() {
             })}
           </div>
         </div>
+      )}
+
+      {/* Viral share card */}
+      {total > 0 && (
+        <ShareCard
+          total={total}
+          contacted={contacted}
+          dating={dating}
+          avgChemistry={avgChemistry}
+          topStyle={
+            Object.entries(styleStats).sort((a, b) => {
+              const rateA = a[1].used > 0 ? a[1].positive / a[1].used : 0;
+              const rateB = b[1].used > 0 ? b[1].positive / b[1].used : 0;
+              return rateB - rateA;
+            })[0]?.[0] ?? null
+          }
+        />
       )}
 
       {total === 0 && (
